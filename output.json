@@ -1,0 +1,17 @@
+[
+  {
+    "nome": "rodrigo",
+    "linguagem": "elixir",
+    "idade": "29"
+  },
+  {
+    "nome": "rodrigo",
+    "linguagem": "golang",
+    "idade": "29"
+  },
+  {
+    "nome": "rodrigo",
+    "linguagem": "phpxx",
+    "idade": "29"
+  }
+]

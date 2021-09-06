@@ -1,0 +1,4 @@
+#!/bin/bash
+
+mix escript.build
+./csvtojson $1
