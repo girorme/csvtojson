@@ -1,7 +1,7 @@
 [
   {
     "nome": "rodrigo",
-    "linguagem": "elixir",
+    "linguagem": "phpxx",
     "idade": "29"
   },
   {
@@ -11,7 +11,7 @@
   },
   {
     "nome": "rodrigo",
-    "linguagem": "phpxx",
+    "linguagem": "elixir",
     "idade": "29"
   }
 ]

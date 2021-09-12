@@ -3,13 +3,10 @@ defmodule Csvtojson do
     args = parse_args(args)
     unless args[:filename], do: System.halt("Usage: ./csvtojson --filename file.csv --output output.json")
 
-    json =
-      get_content(args[:filename])
+    get_content(args[:filename])
       |> csv_to_map_list
       |> map_list_to_json
       |> save_to_file(args[:output])
-
-    IO.puts json
   end
 
   defp parse_args(args) do
@@ -29,13 +26,24 @@ defmodule Csvtojson do
     body = String.split(content, "\n")
     [header | lines] = body
     header = String.split(header, ",")
-
-    for line <- lines do
-      String.split(line, ",")
-      |> Enum.with_index(0)
-      |> Enum.into(%{}, fn {v,k} -> {Enum.at(header, k), v} end)
-    end
+    mount_body(header, lines, [])
   end
+
+  defp mount_body(header, [current | tail], content) do
+    current = String.split(current, ",")
+    line = mount_line(header, current, %{})
+    content = [line | content]
+    mount_body(header, tail, content)
+  end
+
+  defp mount_body(_, [], body), do: body
+
+  defp mount_line([header_current | header_tail], [cell_current | tail], line) do
+    line = Map.put(line, header_current, cell_current)
+    mount_line(header_tail, tail, line)
+  end
+
+  defp mount_line(_, [], line), do: line
 
   defp map_list_to_json(map_list) do
     Poison.encode!(map_list, pretty: true)
